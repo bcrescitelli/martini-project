@@ -86,44 +86,69 @@
             }
         }
 
-        /* --- BLOCK 2 (OPTION 1): VINTAGE TICKET MARQUEE --- */
-        .ticket-marquee-container {
-            background-color: var(--filthy);
-            border-top: 3px dashed var(--espresso);
-            border-bottom: 3px dashed var(--espresso);
-            padding: 1.2rem 0;
+        /* --- BLOCK 2 (OPTION 2): TYPOGRAPHIC CLASH --- */
+        .clash-marquee-container {
+            position: relative;
+            height: 160px; /* Gives room for the overlap */
             overflow: hidden;
-            white-space: nowrap;
+            background-color: var(--vermouth);
+            border-bottom: 2px solid var(--filthy);
             display: flex;
             align-items: center;
         }
 
-        .ticket-marquee-track {
+        .marquee-row {
+            white-space: nowrap;
+            position: absolute;
+            display: flex;
+        }
+
+        /* Background Text (Slow, Tall, Filthy Green) */
+        .row-back {
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.15; /* Subtle background presence */
+        }
+        .row-back .track {
+            display: inline-block;
+            animation: scrollRight 45s linear infinite;
+        }
+        .row-back span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 8rem; /* Massive scale */
+            color: var(--filthy);
+            text-transform: uppercase;
+            font-weight: 700;
+            padding-right: 2rem;
+            line-height: 1;
+        }
+
+        /* Foreground Text (Faster, Chunky Italic, Pimento Red) */
+        .row-front {
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        .row-front .track {
             display: inline-block;
             animation: scrollLeft 25s linear infinite;
         }
-
-        .ticket-marquee-track span {
-            font-family: 'Oswald', sans-serif;
-            color: var(--vermouth);
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            padding-right: 2rem;
-        }
-
-        /* The Pimento Diamond Separator */
-        .ticket-marquee-track span::after {
-            content: '◆';
+        .row-front span {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.5rem;
             color: var(--pimento);
-            font-size: 1.5rem;
-            padding-left: 2rem;
-            vertical-align: middle;
+            font-style: italic;
+            padding-right: 4rem;
+            line-height: 1;
         }
 
         @keyframes scrollLeft {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
+        }
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
@@ -138,27 +163,36 @@
         </div>
     </header>
 
-    <section class="ticket-marquee-container">
-        <div class="ticket-marquee-track">
-            <span>THE MARTINI PROJECT</span>
-            <span>A TOTALLY NECESSARY DATABASE</span>
-            <span>THE MARTINI PROJECT</span>
-            <span>WITH A TWIST</span>
-            <span>THE MARTINI PROJECT</span>
-            <span>A TOTALLY NECESSARY DATABASE</span>
-            <span>THE MARTINI PROJECT</span>
-            <span>WITH A TWIST</span>
+    <section class="clash-marquee-container">
+        
+        <div class="marquee-row row-back">
+            <div class="track">
+                <span>THE MARTINI PROJECT</span>
+                <span>THE MARTINI PROJECT</span>
+                <span>THE MARTINI PROJECT</span>
+            </div>
+            <div class="track">
+                <span>THE MARTINI PROJECT</span>
+                <span>THE MARTINI PROJECT</span>
+                <span>THE MARTINI PROJECT</span>
+            </div>
         </div>
-        <div class="ticket-marquee-track">
-            <span>THE MARTINI PROJECT</span>
-            <span>A TOTALLY NECESSARY DATABASE</span>
-            <span>THE MARTINI PROJECT</span>
-            <span>WITH A TWIST</span>
-            <span>THE MARTINI PROJECT</span>
-            <span>A TOTALLY NECESSARY DATABASE</span>
-            <span>THE MARTINI PROJECT</span>
-            <span>WITH A TWIST</span>
+
+        <div class="marquee-row row-front">
+            <div class="track">
+                <span>The Martini Project</span>
+                <span>The Martini Project</span>
+                <span>The Martini Project</span>
+                <span>The Martini Project</span>
+            </div>
+            <div class="track">
+                <span>The Martini Project</span>
+                <span>The Martini Project</span>
+                <span>The Martini Project</span>
+                <span>The Martini Project</span>
+            </div>
         </div>
+
     </section>
 
 </body>
