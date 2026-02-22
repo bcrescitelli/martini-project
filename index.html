@@ -7,6 +7,14 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V63KDMLVPV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V63KDMLVPV');
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
@@ -88,7 +96,7 @@
         
         .filter-controls { border: 4px solid var(--filthy); padding: 30px; margin-bottom: 40px; background-color: var(--vermouth); }
         
-        /* NEW: Filter Box Header Row for alignment */
+        /* Clear button inside filter box header */
         .filter-box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .filter-label { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1.5rem; text-transform: uppercase; }
 
@@ -128,7 +136,7 @@
         .bar-item a:hover { background: var(--vermouth); color: var(--filthy); }
 
         /* --- BLOCK 5: INTERACTIVE RUBRIC --- */
-        .rubric-section { max-width: 1400px; margin: 6rem auto; padding: 0 4rem 10rem; }
+        .rubric-section { max-width: 1400px; margin: 6rem auto; padding: 0 4rem 6rem; }
         .rubric-intro { margin-bottom: 4rem; }
         .rubric-intro h2 { font-family: 'Oswald', sans-serif; font-size: 4rem; text-transform: uppercase; border-bottom: 5px solid var(--filthy); display: inline-block; line-height: 1; padding-bottom: 10px; margin-bottom: 20px; }
         .rubric-intro p { font-size: 1.6rem; font-style: italic; max-width: 1000px; line-height: 1.4; }
@@ -159,15 +167,47 @@
         .slider-labels { display: flex; justify-content: space-between; margin-top: 15px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; text-transform: uppercase; color: var(--espresso); font-weight: 700; }
         .level-description { font-size: 1.8rem; font-style: italic; line-height: 1.5; min-height: 120px; border-left: 8px solid var(--pimento); padding-left: 2.5rem; color: var(--filthy); display: flex; align-items: center; }
 
+        /* --- BLOCK 6: TIKTOK FOOTER --- */
+        footer {
+            padding: 6rem 4rem;
+            background-color: var(--filthy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 4px solid var(--pimento);
+        }
+        .tiktok-button {
+            background-color: var(--vermouth);
+            color: var(--filthy);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 2.5rem;
+            padding: 20px 60px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 5px solid var(--vermouth);
+            transition: all 0.3s ease;
+            box-shadow: 15px 15px 0px var(--pimento);
+        }
+        .tiktok-button:hover {
+            background-color: var(--pimento);
+            color: var(--vermouth);
+            transform: translate(-5px, -5px);
+            box-shadow: 20px 20px 0px var(--vermouth);
+        }
+
+        /* Responsive */
         @media (max-width: 1024px) { .bar-item { width: calc(50% - 15px); } }
         @media (max-width: 768px) {
-            header, .dossier-content, .filter-widget, .rubric-section { padding: 0 2rem; }
+            header, .dossier-content, .filter-widget, .rubric-section, footer { padding: 0 2rem; }
             .bar-item { width: 100%; }
             .rubric-intro h2 { font-size: 3rem; }
             .rubric-trigger h4 { font-size: 2rem; }
             .about-title { font-size: 3rem; }
             .filter-widget h2 { font-size: 2.5rem; }
-            .location-select { font-size: 1rem; }
+            .filter-box-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .tiktok-button { font-size: 1.5rem; padding: 15px 30px; width: 100%; text-align: center; }
+            footer { padding: 4rem 2rem; }
         }
     </style>
 </head>
@@ -230,7 +270,7 @@
     <section class="rubric-section">
         <div class="rubric-intro">
             <h2>The Rubric</h2>
-            <p>Introducing the TA-TA Method: A Scientific Approach to Martinis. Every martini is judged by 4 key factors.</p>
+            <p>Introducing the TA-TA Method: A Scientific Approach to Martinis. Taste, Ambiance, Temperature, and Accoutrement.</p>
         </div>
 
         <div class="rubric-container">
@@ -277,6 +317,10 @@
         </div>
     </section>
 
+    <footer>
+        <a href="https://www.tiktok.com/@themartiniproject" class="tiktok-button" target="_blank">Find Us on Tiktok</a>
+    </footer>
+
     <script>
         // --- BLOCK 3: SCROLL ANIMATIONS ---
         document.addEventListener("DOMContentLoaded", () => {
@@ -305,12 +349,12 @@
             { name: "The Wooly", score: 2.5, description: "A slightly above average dirty martini, I'd go back but not out of my way.", tags: ["Happy Hour", "Good for Groups"], location: "Manhattan", neighborhood: "NoLita", pour: "Dirty", maps_link: "https://maps.app.goo.gl/WTvZmzZ35SgjqMzB8" },
             { name: "Bar Belly", score: 2.7, description: "$1 Oysters HH and a nice dirty martini.", tags: ["Happy Hour", "Date Night"], location: "Manhattan", neighborhood: "Lower East Side", pour: "Dirty", maps_link: "https://maps.app.goo.gl/7zNzRHYpnVXBma9R7" },
             { name: "The Rockwell Place", score: 1.4, description: "The blue cheese olive martini was poured out of a thermos, but the ambiance was nice.", tags: ["Good for Groups", "Happy Hour"], location: "Brooklyn", neighborhood: "Fort Greene", pour: "Filthy", maps_link: "https://maps.app.goo.gl/695DN6ADJfAJHvyd6" },
-            { name: "Boqueria", score: 2.3, description: "A fun chain of locations and a spicy dirty martini that is on theme.", tags: ["Good for Groups"], location: "Manhattan", neighborhood: "Midtown", pour: "Dirty", maps_link: "https://maps.app.goo.gl/pb5Eqr1391ebBKgg6" },
+            { name: "Boqueria", score: 2.3, description: "A fun chain of locations and a spicy dirty martini.", tags: ["Good for Groups"], location: "Manhattan", neighborhood: "Midtown", pour: "Dirty", maps_link: "https://maps.app.goo.gl/pb5Eqr1391ebBKgg6" },
             { name: "Au Cheval", score: 3, description: "The best burger I've had, but served with a dirty that has blue cheese stuffed olives.", tags: ["Good for Groups"], location: "Manhattan", neighborhood: "Tribecca", pour: "Dirty", maps_link: "https://maps.app.goo.gl/ZEcpdrPzAS6bzf1n76" },
             { name: "JR & Son", score: 3.3, description: "Rustic italian charm meets a delicious dirty martini", tags: ["Date Night", "Mysterious"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://maps.app.goo.gl/C8Xosb62CYUq8e9y6" },
             { name: "Super Burrito", score: 2.3, description: "Divey spot with a great burrito and a cheap dirty martini.", tags: ["Divey", "Happy Hour", "Good for Groups"], location: "Manhattan", neighborhood: "West Village", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/KVVfW2amarZ1ozv87" },
             { name: "Tradesman", score: 1.7, description: "Cute bar with a ton of room, not so great martini.", tags: ["Happy Hour", "Divey", "Good for Groups", "Outside"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://maps.app.goo.gl/sAfKR3DQRN5RPm7N9" },
-            { name: "The Tusk Bar", score: 3, description: "Felt very exclusive, they make a nice martini.", tags: ["$$$", "Date Night"], location: "Manhattan", neighborhood: "NoMad", pour: "Strong", maps_link: "https://maps.app.goo.gl/TFfyuKEWhryZQFQs6" },
+            { name: "The Tusk Bar", score: 3, description: "Felt very exclusive, they make a nice martini.", tags: ["$$$", "Date Night"], location: "Manhattan", neighborhood: "NoNomad", pour: "Strong", maps_link: "https://maps.app.goo.gl/TFfyuKEWhryZQFQs6" },
             { name: "Hello Hello", score: 3, description: "Mid-century modern meets a solid vermouth-forward martini.", tags: ["Good for Groups", "After Work"], location: "Manhattan", neighborhood: "Chelsea", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/t1ZFHkAhJqeN42qL6" },
             { name: "The Otheroom", score: 2.5, description: "Cute bar with underground vibes, and a solid, vermouth-forward 'tini.", tags: ["Date Night", "Mysterious"], location: "Manhattan", neighborhood: "West Village", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/ePSLAeJwMVJQvgWAA" },
             { name: "Dick & Janes", score: 2.3, description: "Divey after dark.", tags: ["Divey"], location: "Brooklyn", neighborhood: "Fort Greene", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Dick+%26+Janes+Brooklyn" },
@@ -357,12 +401,7 @@
                 container.appendChild(el);
             });
         }
-        function clearFilters() { 
-            document.querySelectorAll('.filters input').forEach(i => i.checked = false); 
-            document.getElementById('location').value = ''; 
-            document.getElementById('activeFilters').textContent = ''; 
-            renderBars(bars); 
-        }
+        function clearFilters() { document.querySelectorAll('.filters input').forEach(i => i.checked = false); document.getElementById('location').value = ''; document.getElementById('activeFilters').textContent = ''; renderBars(bars); }
         function filterBars() {
             const selectedTags = Array.from(document.querySelectorAll('.filters input:checked')).map(i => i.value);
             const selectedLoc = document.getElementById('location').value;
@@ -386,7 +425,11 @@
         function toggleRubric(el) { document.querySelectorAll('.rubric-row').forEach(row => { if(row !== el) row.classList.remove('active'); }); el.classList.toggle('active'); }
         function updateRubricText(slider, key) { document.getElementById(`${key}-desc`).innerText = rubricDescriptions[key][slider.value]; }
 
-        window.onload = () => { renderBars(bars); document.querySelectorAll('.filters input').forEach(i => i.addEventListener('change', filterBars)); };
+        window.onload = () => { 
+            renderBars(bars); 
+            document.querySelectorAll('.filters input').forEach(i => i.addEventListener('change', filterBars)); 
+            document.getElementById('location').addEventListener('change', filterBars);
+        };
     </script>
 </body>
 </html>
