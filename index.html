@@ -29,24 +29,18 @@
         /* --- BLOCK 1: HEADER --- */
         header { padding: 2rem 4rem; display: flex; justify-content: center; align-items: center; border-bottom: 2px solid var(--filthy); }
         .logo-wrapper { width: 100%; max-width: 700px; min-height: 120px; display: flex; justify-content: center; align-items: center; position: relative; text-decoration: none; }
-        
-        /* The ./ explicitly looks in the current directory */
         .logo-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 
         /* --- BLOCK 2: CLASH MARQUEE --- */
         .clash-marquee-container {
             position: relative; height: 160px; overflow: hidden; background-color: var(--filthy);
-            border-bottom: 2px solid var(--vermouth); /* Swapped to vermouth so it separates from block 3 */
+            border-bottom: 2px solid var(--vermouth); 
             display: flex; align-items: center;
         }
         .marquee-row { white-space: nowrap; position: absolute; display: flex; }
-        
-        /* Background Text */
         .row-back { top: 50%; transform: translateY(-50%); opacity: 0.15; }
         .row-back .track { display: inline-block; animation: scrollRight 45s linear infinite; }
         .row-back span { font-family: 'Oswald', sans-serif; font-size: 8rem; color: var(--vermouth); font-weight: 700; text-transform: uppercase; padding-right: 2rem; line-height: 1; }
-        
-        /* Foreground Text */
         .row-front { top: 50%; transform: translateY(-50%); z-index: 2; }
         .row-front .track { display: inline-block; animation: scrollLeft 25s linear infinite; }
         .row-front span { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: var(--vermouth); font-style: italic; padding-right: 4rem; line-height: 1; }
@@ -56,24 +50,22 @@
 
         /* --- BLOCK 3: FULL-WIDTH DARK DOSSIER --- */
         .dossier-wrapper {
-            background-color: var(--filthy); /* Dark background applied */
+            background-color: var(--filthy); 
             width: 100%;
-            padding: 5rem 0; /* Vertical breathing room */
+            padding: 5rem 0; 
         }
 
         .dossier-content {
             max-width: 1400px; 
             margin: 0 auto; 
-            padding: 0 4rem; /* Aligns perfectly with the header padding */
+            padding: 0 4rem; 
             text-align: left; 
         }
 
-        /* Text colors updated to Vermouth to pop against the dark green */
         .about-title { font-size: 4rem; margin-bottom: 0.5rem; line-height: 1.1; color: var(--vermouth); }
         .about-subtitle { font-size: 1.8rem; font-style: italic; color: var(--vermouth); opacity: 0.9; margin-bottom: 2.5rem; }
         .about-text p { font-size: 1.4rem; line-height: 1.6; margin-bottom: 1.5rem; color: var(--vermouth); opacity: 0.85; }
         
-        /* Interactive Highlight CSS - Pimento pops heavily here */
         .scroll-highlight {
             background-image: linear-gradient(var(--pimento), var(--pimento));
             background-size: 0% 100%;
@@ -84,30 +76,164 @@
             font-style: italic;
         }
 
-        .scroll-highlight.active {
-            background-size: 100% 100%;
-            color: var(--vermouth); /* Keeps text legible when highlighted */
-        }
+        .scroll-highlight.active { background-size: 100% 100%; color: var(--vermouth); }
 
-        /* Interactive Underline CSS */
-        .scroll-underline {
-            position: relative;
-            display: inline-block;
-        }
-
+        .scroll-underline { position: relative; display: inline-block; }
         .scroll-underline::after {
+            content: ''; position: absolute; bottom: 2px; left: 0; width: 0%; height: 3px;
+            background-color: var(--pimento); transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .scroll-underline.active::after { width: 100%; }
+
+        /* --- BLOCK 4: DATABASE GRID --- */
+        .database-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 4rem;
+        }
+
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+            border-bottom: 3px solid var(--filthy);
+            padding-bottom: 1rem;
+        }
+
+        .grid-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            text-transform: uppercase;
+            color: var(--filthy);
+            line-height: 1;
+        }
+
+        .grid-filter {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--pimento);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .martini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .martini-card {
+            border: 3px solid var(--filthy);
+            background-color: var(--vermouth);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none; /* Make entire card clickable */
+            color: inherit;
+        }
+
+        .martini-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 10px 10px 0px var(--pimento);
+        }
+
+        .card-header {
+            border-bottom: 3px solid var(--filthy);
+            padding: 1rem 1.5rem;
+            background-color: var(--brine-time);
+            color: var(--vermouth);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .spirit-tag {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .neighborhood-tag {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 2rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bar-name {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--filthy);
+        }
+
+        .filth-level {
+            margin-bottom: 1.5rem;
+            color: var(--espresso);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Custom SVG Olive Icon for Ratings */
+        .olive-icon {
+            width: 18px;
+            height: 18px;
+            fill: var(--brine-time);
+            stroke: var(--filthy);
+            stroke-width: 8;
+        }
+
+        .olive-pimento { fill: var(--pimento); }
+
+        .card-review {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: var(--espresso);
+            margin-bottom: 2rem;
+            flex-grow: 1; /* Pushes the "read more" to the bottom */
+        }
+
+        .read-more {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            color: var(--pimento);
+            align-self: flex-start;
+            position: relative;
+        }
+
+        .read-more::after {
             content: '';
             position: absolute;
-            bottom: 2px;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
             left: 0;
-            width: 0%;
-            height: 3px;
             background-color: var(--pimento);
-            transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
         }
 
-        .scroll-underline.active::after {
-            width: 100%;
+        .martini-card:hover .read-more::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
 
         @media (max-width: 768px) {
@@ -117,6 +243,11 @@
             .about-title { font-size: 2.8rem; }
             .about-subtitle { font-size: 1.4rem; margin-bottom: 2rem; }
             .about-text p { font-size: 1.1rem; }
+            
+            .database-section { padding: 4rem 2rem; }
+            .grid-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .grid-title { font-size: 3rem; }
+            .martini-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -125,7 +256,7 @@
     <header>
         <div class="logo-container">
             <a href="/" class="logo-wrapper" aria-label="The Martini Project Home">
-                <img class="logo-img" src="./logo-horizontal.png" alt="The Martini Project Logo">
+                <img class="logo-img" src="https://raw.githubusercontent.com/bcrescitelli/martini-project/main/logo-horizontal.png" alt="The Martini Project Logo">
             </a>
         </div>
     </header>
@@ -162,14 +293,79 @@
         </div>
     </section>
 
+    <section class="database-section">
+        
+        <div class="grid-header">
+            <h2 class="grid-title">The Field Notes</h2>
+            <div class="grid-filter">Filter by Neighborhood ↓</div>
+        </div>
+
+        <div class="martini-grid">
+            
+            <a href="#" class="martini-card">
+                <div class="card-header">
+                    <span class="spirit-tag">Gin</span>
+                    <span class="neighborhood-tag">West Village</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="bar-name">Minetta Tavern</h3>
+                    <div class="filth-level">
+                        Filth: 
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                    </div>
+                    <p class="card-review">An absolute classic. The brine is balanced, the glass is dangerously cold, and the atmosphere forces you to order a second round.</p>
+                    <span class="read-more">Read Review</span>
+                </div>
+            </a>
+
+            <a href="#" class="martini-card">
+                <div class="card-header">
+                    <span class="spirit-tag">Vodka</span>
+                    <span class="neighborhood-tag">Williamsburg</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="bar-name">Maison Premiere</h3>
+                    <div class="filth-level">
+                        Filth: 
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                    </div>
+                    <p class="card-review">They know oysters, and they know the exact level of salinity needed to cut through a heavy dinner. Beautifully filthy.</p>
+                    <span class="read-more">Read Review</span>
+                </div>
+            </a>
+
+            <a href="#" class="martini-card">
+                <div class="card-header">
+                    <span class="spirit-tag">Gin / Vodka</span>
+                    <span class="neighborhood-tag">Upper East Side</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="bar-name">Bemelmans Bar</h3>
+                    <div class="filth-level">
+                        Filth: 
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
+                    </div>
+                    <p class="card-review">You aren't just paying for the drink, you're paying for the piano and the murals. The sidecar carafe is a godsend.</p>
+                    <span class="read-more">Read Review</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
     <script>
-        // Use Intersection Observer to trigger animations when scrolled into view
+        // Scroll Highlights Script (from Block 3)
         document.addEventListener("DOMContentLoaded", () => {
             const animatedElements = document.querySelectorAll('.scroll-highlight, .scroll-underline');
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    // Trigger as soon as the element enters the viewport
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
