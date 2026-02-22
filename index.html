@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- PALETTE & BASE --- */
         :root {
             --pimento: #ff0b0b;
             --espresso: #3b1b10;
@@ -25,38 +26,39 @@
             font-family: 'DM Serif Display', serif; -webkit-font-smoothing: antialiased;
         }
 
-        /* --- BLOCK 1 & 2: HEADER & MARQUEE --- */
+        /* --- BLOCK 1: HEADER --- */
         header { padding: 2rem 4rem; display: flex; justify-content: center; align-items: center; border-bottom: 2px solid var(--filthy); }
         .logo-wrapper { width: 100%; max-width: 700px; min-height: 120px; display: flex; justify-content: center; align-items: center; position: relative; }
         .logo-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 
+        /* --- BLOCK 2: SLIM CLASH MARQUEE --- */
         .clash-marquee-container {
-            position: relative; height: 160px; overflow: hidden; background-color: var(--filthy);
-            border-bottom: 2px solid var(--filthy); display: flex; align-items: center;
+            position: relative; 
+            height: 90px; /* Reduced height */
+            overflow: hidden; 
+            background-color: var(--filthy);
+            border-bottom: 2px solid var(--filthy); 
+            display: flex; 
+            align-items: center;
         }
         .marquee-row { white-space: nowrap; position: absolute; display: flex; }
-        .row-back { top: 50%; transform: translateY(-50%); opacity: 0.15; }
-        .row-back .track { display: inline-block; animation: scrollRight 45s linear infinite; }
-        .row-back span { font-family: 'Oswald', sans-serif; font-size: 8rem; color: var(--vermouth); font-weight: 700; padding-right: 2rem; line-height: 1; }
+        
         .row-front { top: 50%; transform: translateY(-50%); z-index: 2; }
         .row-front .track { display: inline-block; animation: scrollLeft 25s linear infinite; }
         .row-front span { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: var(--vermouth); font-style: italic; padding-right: 4rem; line-height: 1; }
 
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-        /* --- BLOCK 3: DOSSIER SCROLL HIGHLIGHTS --- */
+        /* --- BLOCK 3: COMPACT DOSSIER --- */
         .dossier-section {
             max-width: 800px;
-            margin: 4rem auto;
-            padding: 3rem 2rem;
-            text-align: center;
-            /* Extra bottom margin so you can scroll past it to see the trigger */
-            margin-bottom: 20vh; 
+            margin: 4rem auto 2rem auto; /* Tightened margins */
+            padding: 0 2rem;
+            text-align: left; /* Left-aligned for readability */
         }
 
         .about-title { font-size: 3.5rem; margin-bottom: 0.5rem; line-height: 1.1; }
-        .about-subtitle { font-size: 1.5rem; font-style: italic; color: var(--espresso); margin-bottom: 2rem; }
+        .about-subtitle { font-size: 1.5rem; font-style: italic; color: var(--espresso); margin-bottom: 2.5rem; }
         .about-text p { font-size: 1.3rem; line-height: 1.6; margin-bottom: 1.5rem; color: var(--espresso); }
         
         /* Interactive Highlight CSS */
@@ -97,8 +99,13 @@
         }
 
         @media (max-width: 768px) {
+            header { padding: 1.5rem 1rem; }
+            .logo-wrapper { min-height: 80px; }
             .about-title { font-size: 2.8rem; }
+            .about-subtitle { font-size: 1.3rem; margin-bottom: 2rem; }
             .about-text p { font-size: 1.1rem; }
+            .clash-marquee-container { height: 70px; }
+            .row-front span { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -111,8 +118,10 @@
     </header>
     
     <section class="clash-marquee-container">
-        <div class="marquee-row row-back"><div class="track"><span>THE MARTINI PROJECT</span><span>THE MARTINI PROJECT</span></div><div class="track"><span>THE MARTINI PROJECT</span><span>THE MARTINI PROJECT</span></div></div>
-        <div class="marquee-row row-front"><div class="track"><span>The Martini Project</span><span>The Martini Project</span></div><div class="track"><span>The Martini Project</span><span>The Martini Project</span></div></div>
+        <div class="marquee-row row-front">
+            <div class="track"><span>The Martini Project</span><span>The Martini Project</span><span>The Martini Project</span></div>
+            <div class="track"><span>The Martini Project</span><span>The Martini Project</span><span>The Martini Project</span></div>
+        </div>
     </section>
 
     <section class="dossier-section">
@@ -132,14 +141,14 @@
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    // When the element is 20% visible in the viewport
+                    // Trigger as soon as the element enters the viewport
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
                 });
             }, {
-                threshold: 0.2, // Trigger when 20% visible
-                rootMargin: "0px 0px -100px 0px" // Triggers slightly before the very bottom of the screen
+                threshold: 0.1, 
+                rootMargin: "0px 0px -50px 0px" 
             });
 
             animatedElements.forEach(el => observer.observe(el));
