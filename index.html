@@ -25,6 +25,7 @@
             box-sizing: border-box;
         }
 
+        /* The main body is Vermouth for future sections */
         body {
             background-color: var(--vermouth);
             color: var(--filthy);
@@ -32,13 +33,14 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- BLOCK 1: HEADER --- */
+        /* --- BLOCK 1: HEADER (DARK THEME) --- */
         header {
             padding: 2rem 4rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-bottom: 2px solid var(--filthy);
+            background-color: var(--filthy); /* Dark Theme Applied */
+            border-bottom: 2px solid var(--vermouth); /* Separator line */
         }
 
         .logo-container {
@@ -63,7 +65,7 @@
             font-family: 'Oswald', sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            color: var(--pimento);
+            color: var(--vermouth); /* Updated to pop on dark green */
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
@@ -86,13 +88,13 @@
             }
         }
 
-        /* --- BLOCK 2 (OPTION 2): TYPOGRAPHIC CLASH --- */
+        /* --- BLOCK 2: TYPOGRAPHIC CLASH MARQUEE (DARK THEME) --- */
         .clash-marquee-container {
             position: relative;
-            height: 160px; /* Gives room for the overlap */
+            height: 160px; 
             overflow: hidden;
-            background-color: var(--vermouth);
-            border-bottom: 2px solid var(--filthy);
+            background-color: var(--filthy); /* Dark Theme Applied */
+            border-bottom: 2px solid var(--vermouth);
             display: flex;
             align-items: center;
         }
@@ -103,11 +105,11 @@
             display: flex;
         }
 
-        /* Background Text (Slow, Tall, Filthy Green) */
+        /* Background Text (Slow, Tall, Vermouth Cream) */
         .row-back {
             top: 50%;
             transform: translateY(-50%);
-            opacity: 0.15; /* Subtle background presence */
+            opacity: 0.15; /* Keeps it subtle against the dark green */
         }
         .row-back .track {
             display: inline-block;
@@ -115,8 +117,8 @@
         }
         .row-back span {
             font-family: 'Oswald', sans-serif;
-            font-size: 8rem; /* Massive scale */
-            color: var(--filthy);
+            font-size: 8rem; 
+            color: var(--vermouth);
             text-transform: uppercase;
             font-weight: 700;
             padding-right: 2rem;
