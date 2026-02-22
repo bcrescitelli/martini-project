@@ -7,15 +7,16 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CONTEMPORARY ECLECTIC PALETTE & BASE --- */
+        /* --- THE MARTINI PROJECT PALETTE --- */
         :root {
-            --bg-color: #F4F2EB;       /* Warm textured cream */
-            --text-color: #111111;     /* Stark black */
-            --accent-color: #E63946;   /* Pimento olive red */
-            --grid-line: rgba(17, 17, 17, 0.1); 
+            --pimento: #ff0b0b;
+            --espresso: #3b1b10;
+            --brine-time: #618f62;
+            --filthy: #032b03;
+            --vermouth: #fffcf1;
         }
 
         * {
@@ -25,74 +26,92 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Space Grotesk', sans-serif;
-            
-            /* Geometric grid background */
-            background-image: 
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: center top;
+            background-color: var(--vermouth);
+            color: var(--filthy);
+            font-family: 'DM Serif Display', serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- BLOCK 1: HEADER --- */
         header {
+            padding: 2rem 4rem;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 2.5rem 2rem;
-            border-bottom: 4px solid var(--text-color);
-            background-color: var(--bg-color); 
-            position: relative;
-            z-index: 10;
+            border-bottom: 2px solid var(--filthy);
         }
 
-        /* Strong geometric framing lines */
-        header::before, header::after {
+        nav.nav-links {
+            display: flex;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        nav.nav-links.right {
+            justify-content: flex-end;
+        }
+
+        nav.nav-links a {
+            color: var(--filthy);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav.nav-links a::after {
             content: '';
             position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background-color: var(--text-color);
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--pimento);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
         }
-        header::before { left: 40px; }
-        header::after { right: 40px; }
 
+        nav.nav-links a:hover {
+            color: var(--pimento);
+        }
+
+        nav.nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Centered Logo Container */
         .logo-container {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 300px; 
-            height: 120px;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            border: 3px solid var(--text-color);
-            
-            /* High-contrast, sharp digital drop shadow */
-            box-shadow: 8px 8px 0px var(--accent-color);
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .logo-container:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 10px 10px 0px var(--accent-color);
         }
 
-        /* Hide the placeholder text when the image is active */
+        .logo-wrapper {
+            width: 350px; 
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        /* Placeholder styling (will hide when image is added) */
         .placeholder-text {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--pimento);
+            text-transform: uppercase;
+            letter-spacing: 2px;
             text-align: center;
-            padding: 1rem;
+            line-height: 1;
         }
 
         .logo-img {
@@ -101,19 +120,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Change to 'contain' if your logo shouldn't be cropped */
-            display: none; /* Change to 'block' when you add your GitHub image URL */
+            object-fit: contain; 
+            display: none; /* Change to 'block' when you add your image URL */
+        }
+
+        /* Responsive adjustment for smaller screens */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+            nav.nav-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="/" class="logo-container" aria-label="The Martini Project Home">
-            <span class="placeholder-text">Logo<br>Placeholder</span>
-            
-            <img class="logo-img" src="YOUR_GITHUB_RAW_IMAGE_URL" alt="The Martini Project Logo">
-        </a>
+        <nav class="nav-links left">
+            <a href="/">Home</a>
+        </nav>
+
+        <div class="logo-container">
+            <a href="/" class="logo-wrapper" aria-label="The Martini Project Home">
+                <span class="placeholder-text">Logo<br>Here</span>
+                
+                <img class="logo-img" src="YOUR_GITHUB_RAW_IMAGE_URL" alt="The Martini Project Logo">
+            </a>
+        </div>
+
+        <nav class="nav-links right">
+            <a href="/dirty-thoughts">Dirty Thoughts Blog</a>
+        </nav>
     </header>
 
 </body>
