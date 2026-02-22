@@ -25,7 +25,7 @@
             box-sizing: border-box;
         }
 
-        /* The main body is Vermouth for future sections */
+        /* The main body remains Vermouth */
         body {
             background-color: var(--vermouth);
             color: var(--filthy);
@@ -33,14 +33,14 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- BLOCK 1: HEADER (DARK THEME) --- */
+        /* --- BLOCK 1: HEADER (LIGHT THEME) --- */
         header {
             padding: 2rem 4rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--filthy); /* Dark Theme Applied */
-            border-bottom: 2px solid var(--vermouth); /* Separator line */
+            background-color: var(--vermouth); /* Reverted to Light Theme */
+            border-bottom: 2px solid var(--filthy); 
         }
 
         .logo-container {
@@ -60,18 +60,8 @@
             position: relative;
             text-decoration: none;
         }
-        
-        .placeholder-text {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--vermouth); /* Updated to pop on dark green */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-            line-height: 1;
-        }
 
+        /* Logo image now displays by default */
         .logo-img {
             position: absolute;
             top: 0;
@@ -79,7 +69,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain; 
-            display: none; 
+            display: block; 
         }
 
         @media (max-width: 768px) {
@@ -94,7 +84,7 @@
             height: 160px; 
             overflow: hidden;
             background-color: var(--filthy); /* Dark Theme Applied */
-            border-bottom: 2px solid var(--vermouth);
+            border-bottom: 2px solid var(--filthy);
             display: flex;
             align-items: center;
         }
@@ -109,7 +99,7 @@
         .row-back {
             top: 50%;
             transform: translateY(-50%);
-            opacity: 0.15; /* Keeps it subtle against the dark green */
+            opacity: 0.15; 
         }
         .row-back .track {
             display: inline-block;
@@ -125,7 +115,7 @@
             line-height: 1;
         }
 
-        /* Foreground Text (Faster, Chunky Italic, Pimento Red) */
+        /* Foreground Text (Faster, Chunky Italic, Vermouth Cream) */
         .row-front {
             top: 50%;
             transform: translateY(-50%);
@@ -138,7 +128,7 @@
         .row-front span {
             font-family: 'DM Serif Display', serif;
             font-size: 3.5rem;
-            color: var(--pimento);
+            color: var(--vermouth); /* Changed from Pimento for readability */
             font-style: italic;
             padding-right: 4rem;
             line-height: 1;
@@ -159,8 +149,7 @@
     <header>
         <div class="logo-container">
             <a href="/" class="logo-wrapper" aria-label="The Martini Project Home">
-                <span class="placeholder-text">Long Logo<br>Here</span>
-                <img class="logo-img" src="YOUR_GITHUB_RAW_IMAGE_URL" alt="The Martini Project Logo">
+                <img class="logo-img" src="/long-horizontal.png" alt="The Martini Project Logo">
             </a>
         </div>
     </header>
