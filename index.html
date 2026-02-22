@@ -46,52 +46,45 @@
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-        /* --- BLOCK 3: INDEX CARD ABOUT SECTION --- */
-        .index-about-wrapper { padding: 5rem 2rem; }
-        
-        .database-card {
-            max-width: 900px; margin: 0 auto;
-            border: 4px solid var(--espresso);
-            background-color: #fbf8ed; /* Slightly darker cream for card depth */
-            position: relative;
-            box-shadow: 12px 12px 0px var(--brine-time);
+        /* --- BLOCK 3: BOLD POSTER ABOUT SECTION --- */
+        .poster-about {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .card-header {
-            border-bottom: 4px solid var(--espresso);
-            padding: 1.5rem 3rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        .sparkle-group { display: flex; gap: 1rem; margin-bottom: 2rem; justify-content: center; }
+        .sparkle-icon { width: 48px; height: 48px; fill: var(--filthy); }
 
-        .meta-tag {
-            font-family: 'Oswald', sans-serif; text-transform: uppercase;
-            font-size: 1rem; letter-spacing: 2px; color: var(--pimento);
-        }
-
-        .card-body { padding: 4rem 3rem; }
-
-        .sparkle-icon { width: 40px; height: 40px; fill: var(--filthy); margin-bottom: 1rem; }
+        .about-title { font-size: 6rem; line-height: 1; margin-bottom: 1rem; letter-spacing: -1px; }
+        .about-subtitle { font-size: 2.5rem; line-height: 1.2; font-style: italic; margin-bottom: 4rem; }
         
-        .about-title { font-size: 4rem; margin-bottom: 0.5rem; }
-        .about-subtitle { font-size: 1.8rem; font-style: italic; margin-bottom: 3rem; }
-        
+        /* A slightly offset shadow simulates a "misprint" for the chaotic edge */
         .accent-underline {
-            text-decoration: underline; text-decoration-color: var(--pimento);
-            text-decoration-thickness: 4px; text-underline-offset: 4px;
+            position: relative;
+            display: inline-block;
+        }
+        .accent-underline::after {
+            content: ''; position: absolute; bottom: 4px; left: -2px; right: -4px;
+            height: 6px; background-color: var(--pimento); z-index: -1; transform: rotate(-1deg);
         }
 
-        .about-text p { font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem; }
-        .about-text p:last-child { margin-bottom: 0; }
-
+        .about-text p { font-size: 2rem; line-height: 1.5; margin-bottom: 2.5rem; }
+        
         .text-highlight {
             background-color: var(--pimento); color: var(--vermouth);
-            padding: 0 0.4rem; font-style: italic;
+            padding: 0 0.5rem; font-style: italic;
+            box-shadow: 2px 2px 0px var(--espresso); /* Adds pop */
         }
 
         @media (max-width: 768px) {
-            .card-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            .card-body { padding: 2rem; }
-            .about-title { font-size: 3rem; }
+            .about-title { font-size: 4rem; }
+            .about-subtitle { font-size: 1.8rem; }
+            .about-text p { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -114,23 +107,20 @@
         </div>
     </section>
 
-    <section class="index-about-wrapper">
-        <div class="database-card">
-            <div class="card-header">
-                <span class="meta-tag">File: 001 - Origin</span>
-                <span class="meta-tag">Status: Classified</span>
-            </div>
-            <div class="card-body">
-                <svg class="sparkle-icon" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
-                <h2 class="about-title">About the Project</h2>
-                <h3 class="about-subtitle">A totally necessary martini database, <span class="accent-underline">with a twist</span></h3>
-                
-                <div class="about-text">
-                    <p>Listen, we are living in a golden age of martinis. Espresso martinis are fueling the masses, the East River water is making dirty martinis dirtier than ever, and some bartenders are doing things with gin that should probably require a permit. It is a beautiful and chaotic time.</p>
-                    <p>Enter <span class="text-highlight">The Martini Project</span> your spirited guide to NYC’s best dirty martinis. There’s no crying over spilt milk, but we allow for the occasional tear over a tasteless martini. We are here to separate the crisp from the cringe and the briny from the bland.</p>
-                    <p>This is not just a list. This is a mission. <span class="accent-underline">And it comes with blue cheese stuffed olives.</span></p>
-                </div>
-            </div>
+    <section class="poster-about">
+        <div class="sparkle-group">
+            <svg class="sparkle-icon" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+            <svg class="sparkle-icon" viewBox="0 0 24 24" style="transform: translateY(-20px) scale(0.6);"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+            <svg class="sparkle-icon" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+        </div>
+        
+        <h2 class="about-title">About the Project</h2>
+        <h3 class="about-subtitle">A totally necessary martini database, <span class="accent-underline">with a twist</span></h3>
+        
+        <div class="about-text">
+            <p>Listen, we are living in a golden age of martinis. Espresso martinis are fueling the masses, the East River water is making dirty martinis dirtier than ever, and some bartenders are doing things with gin that should probably require a permit. It is a beautiful and chaotic time.</p>
+            <p>Enter <span class="text-highlight">The Martini Project</span> your spirited guide to NYC’s best dirty martinis. There’s no crying over spilt milk, but we allow for the occasional tear over a tasteless martini. We are here to separate the crisp from the cringe and the briny from the bland.</p>
+            <p>This is not just a list. This is a mission. <span class="accent-underline" style="transform: rotate(1deg);">And it comes with blue cheese stuffed olives.</span></p>
         </div>
     </section>
 
