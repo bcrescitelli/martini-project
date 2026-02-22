@@ -1,649 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Martini Project</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-cream: #fefcf1;
-      --text-green: #042b04;
-      --accent-red: #ff0c0b;
-      --tag-bg: #eaddcf; /* Slightly darker cream for tags */
-      --border-radius: 12px;
-      --btn-radius: 50px;
-    }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: var(--bg-cream);
-      color: var(--text-green);
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-
-    h1, h2, h3, .serif {
-      font-family: 'Young Serif', serif;
-      font-weight: 400;
-    }
-
-    /* --- HEADER --- */
-    header {
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .logo-container img {
-      height: 50px; /* Adjust based on your actual logo file */
-      width: auto;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Martini Project</title>
     
-    /* Fallback if no logo image is found */
-    .logo-text {
-      font-family: 'Young Serif', serif;
-      font-size: 1.5rem;
-      color: var(--text-green);
-      text-decoration: none;
-    }
+    <style>
+        /* --- COLOR PALETTE --- */
+        :root {
+            --pimento: #ff0b0b;
+            --espresso: #3b1b10;
+            --brine-time: #618f62;
+            --filthy: #032b03;
+            --vermouth: #fffcf1;
+        }
 
-    .nav-links a {
-      color: var(--text-green);
-      text-decoration: none;
-      margin-left: 30px;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-    }
+        /* --- BASE STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* --- HERO / ABOUT SECTION --- */
-    .about-section {
-      background-color: var(--text-green);
-      color: var(--bg-cream);
-      padding: 80px 20px;
-      margin-bottom: 60px;
-    }
+        body {
+            /* Majority whitespace is Vermouth */
+            background-color: var(--vermouth); 
+            font-family: 'Courier New', Courier, monospace; 
+            color: var(--filthy);
+        }
 
-    .about-content {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+        /* --- BLOCK 1: HEADER --- */
+        header {
+            /* Filthy as the prominent, heavy color */
+            background-color: var(--filthy); 
+            /* Pimento red for a punchy, maximalist separation line */
+            border-bottom: 6px solid var(--pimento); 
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .about-content h1 {
-      font-size: 3.5rem;
-      margin: 0 0 20px 0;
-      line-height: 1.1;
-    }
+        /* Subtle retro dot-matrix overlay effect */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(var(--brine-time) 1.5px, transparent 1.5px);
+            background-size: 12px 12px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
 
-    .underline-accent {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .underline-accent::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 5px;
-      width: 100%;
-      height: 3px;
-      background-color: var(--accent-red);
-    }
+        /* Placeholder styling */
+        .logo-placeholder {
+            border: 3px solid var(--espresso);
+            background-color: var(--vermouth);
+            color: var(--filthy);
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            z-index: 1;
+            /* Harsh drop shadow using Pimento for that retro print feel */
+            box-shadow: 5px 5px 0px var(--pimento); 
+        }
 
-    .about-text {
-      font-size: 1.2rem;
-      max-width: 800px;
-      opacity: 0.9;
-    }
-    
-    .red-text {
-      color: var(--accent-red);
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* --- THE RUBRIC (TA-TA METHOD) --- */
-    .rubric-section {
-      max-width: 1200px;
-      margin: 0 auto 80px auto;
-      padding: 0 20px;
-    }
-
-    .rubric-title {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-    }
-
-    .rubric-grid {
-      display: grid;
-      grid-template-columns: 150px repeat(4, 1fr);
-      border: 2px solid var(--text-green);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-    }
-
-    .rubric-header-col {
-      background-color: var(--text-green);
-      color: var(--bg-cream);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-family: 'Young Serif', serif;
-      font-size: 1.2rem;
-      border-bottom: 1px solid var(--bg-cream);
-    }
-
-    .rubric-cell {
-      padding: 15px;
-      border-right: 1px solid var(--text-green);
-      border-bottom: 1px solid var(--text-green);
-      font-size: 0.85rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-    
-    .rubric-icon {
-      font-size: 24px; 
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    /* --- FILTER SECTION --- */
-    .main-content {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .filter-title {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-
-    .filter-container {
-      margin-bottom: 40px;
-    }
-
-    .location-dropdown {
-      width: 100%;
-      max-width: 100%;
-      padding: 15px;
-      font-family: 'Young Serif', serif;
-      font-size: 1.2rem;
-      border: 2px solid var(--text-green);
-      border-radius: 8px;
-      background: var(--bg-cream);
-      color: var(--text-green);
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .filter-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .filter-btn {
-      background: transparent;
-      border: 1px solid var(--text-green);
-      border-radius: var(--btn-radius);
-      padding: 10px 24px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      color: var(--text-green);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.95rem;
-    }
-
-    .filter-btn:hover {
-      background: rgba(4, 43, 4, 0.05);
-    }
-
-    /* Style for the hidden checkbox logic */
-    input[type="checkbox"]:checked + label {
-      background-color: var(--text-green);
-      color: var(--bg-cream);
-    }
-
-    .active-filters-text {
-      margin-top: 15px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* --- CARDS --- */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 30px;
-    }
-
-    .card {
-      /* TRANSPARENT BG FIX */
-      background-color: transparent; 
-      border: 2px solid var(--text-green);
-      border-radius: var(--border-radius);
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 10px;
-    }
-
-    .card h3 {
-      font-size: 1.8rem;
-      margin: 0;
-      line-height: 1;
-    }
-
-    .score-box {
-      background-color: var(--text-green);
-      color: var(--bg-cream);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .location-text {
-      text-transform: uppercase;
-      color: #666;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-    }
-
-    .card-desc {
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-      flex-grow: 1;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 25px;
-    }
-
-    .tag {
-      background-color: #E8E6D9; /* The greenish/beige from screenshot */
-      color: var(--text-green);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* POUR PROFILE - SEGMENTED BAR */
-    .pour-profile {
-      margin-bottom: 20px;
-    }
-    
-    .pour-label {
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #666;
-      margin-bottom: 8px;
-    }
-
-    .pour-bar {
-      display: flex;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .pour-segment {
-      flex: 1;
-      text-align: center;
-      padding: 8px 0;
-      font-size: 0.8rem;
-      font-weight: 700;
-      background: #EFEFEF;
-      color: #999;
-      border-right: 1px solid #ccc;
-    }
-    
-    .pour-segment:last-child {
-      border-right: none;
-    }
-
-    .pour-segment.active {
-      background-color: var(--text-green);
-      color: var(--bg-cream);
-    }
-
-    .btn-main {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background-color: transparent;
-      border: 2px solid var(--text-green);
-      color: var(--text-green);
-      font-family: 'Young Serif', serif;
-      font-size: 1.1rem;
-      padding: 12px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .btn-main:hover {
-      background-color: var(--text-green);
-      color: var(--bg-cream);
-    }
-
-    /* Mobile Responsive Rubric */
-    @media (max-width: 768px) {
-      .rubric-grid {
-        display: block; /* Stack it */
-        border: none;
-      }
-      .rubric-header-col {
-        display: none; /* Hide side headers on mobile */
-      }
-      .rubric-cell {
-        border: 1px solid var(--text-green);
-        margin-bottom: 10px;
-        border-radius: 8px;
-        padding: 20px;
-      }
-      header {
-        flex-direction: column;
-        gap: 20px;
-      }
-      .about-content h1 {
-        font-size: 2.5rem;
-      }
-    }
-  </style>
+        /* The class we will use once you upload the actual image */
+        .header-logo {
+            max-height: 80px; 
+            width: auto;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo-container">
-      <a href="#" class="logo-text">
-        <img src="logo.png" alt="The Martini Project" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span style="display:none;">The Martini Project 🍸</span>
-      </a>
-    </div>
-    <nav class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Dirty Thoughts Blog</a>
-    </nav>
-  </header>
-
-  <section class="about-section">
-    <div class="about-content">
-      <h3 style="margin-bottom: 0;">★</h3>
-      <h1>About the Project</h1>
-      <h1>A totally necessary martini database, <span class="underline-accent">with a twist</span></h1>
-      
-      <p class="about-text">
-        Listen, we are living in a golden age of martinis. Espresso martinis are fueling the masses, the East River water is making dirty martinis dirtier than ever, and some bartenders are doing things with gin that should probably require a permit.
-      </p>
-      <p class="about-text">
-        Enter <span class="red-text">The Martini Project</span> your spirited guide to NYC's best dirty martinis. There's no crying over spilt milk, but we allow for the occasional tear over a tasteless martini. We are here to separate the crisp from the cringe and the briny from the bland.
-      </p>
-      <p class="about-text" style="font-weight: bold; text-decoration: underline; text-decoration-color: var(--accent-red); text-decoration-thickness: 2px;">
-        This is not just a list. This is a mission. And it comes with blue cheese stuffed olives.
-      </p>
-    </div>
-  </section>
-
-  <section class="rubric-section">
-    <div class="serif rubric-title">The Rubric</div>
-    <p style="margin-bottom: 20px; max-width: 800px;">Every martini is judged using my highly scientific <strong>TA-TA method</strong>.</p>
-    
-    <div class="rubric-grid">
-      <div class="rubric-header-col">Taste<br>40%</div>
-      <div class="rubric-cell">
-        <strong>🍸</strong>
-        Tastes like rubbing alcohol. No balance.
-      </div>
-      <div class="rubric-cell">
-        <strong>🍸🍸</strong>
-        Drinkable, but something is off. Weird aftertaste.
-      </div>
-      <div class="rubric-cell">
-        <strong>🍸🍸🍸</strong>
-        Solid execution. Good balance, decent brine.
-      </div>
-      <div class="rubric-cell">
-        <strong>🍸🍸🍸🍸</strong>
-        Perfection in a glass. Smooth, briny, crisp.
-      </div>
-
-      <div class="rubric-header-col">Ambiance<br>20%</div>
-      <div class="rubric-cell">
-        <strong>💡</strong>
-        Peanut shells on floor. Bad vibes.
-      </div>
-      <div class="rubric-cell">
-        <strong>💡💡</strong>
-        Passable, but nothing special. It's fine.
-      </div>
-      <div class="rubric-cell">
-        <strong>💡💡💡</strong>
-        Elevated but not iconic. Swanky enough.
-      </div>
-      <div class="rubric-cell">
-        <strong>💡💡💡💡</strong>
-        Dim lighting, jazz playing, feels like a movie.
-      </div>
-      
-      <div class="rubric-header-col">Temperature<br>30%</div>
-      <div class="rubric-cell">
-        <strong>❄️</strong>
-        Lukewarm disappointment.
-      </div>
-      <div class="rubric-cell">
-        <strong>❄️❄️</strong>
-        Cold-ish, but not ice-cold.
-      </div>
-      <div class="rubric-cell">
-        <strong>❄️❄️❄️</strong>
-        Almost there. A well-chilled martini.
-      </div>
-      <div class="rubric-cell">
-        <strong>❄️❄️❄️❄️</strong>
-        Brain freeze in the best way. Condensation on glass.
-      </div>
-    </div>
-  </section>
-
-  <div class="main-content">
-    <div class="serif filter-title">Find Your Perfect Pour</div>
-
-    <div class="filter-container">
-      <div class="filter-header" style="font-weight: 700; color: #cc4444; margin-bottom: 10px;">Filter by Vibe</div>
-      
-      <select id="locationSelect" class="location-dropdown" onchange="applyFilters()">
-        <option value="">All Locations</option>
-        <option value="Manhattan">Manhattan</option>
-        <option value="Brooklyn">Brooklyn</option>
-      </select>
-
-      <div class="filter-pills">
-        <input type="checkbox" id="tag1" value="Divey" style="display:none" onchange="applyFilters()">
-        <label for="tag1" class="filter-btn">Divey</label>
-
-        <input type="checkbox" id="tag2" value="Mysterious" style="display:none" onchange="applyFilters()">
-        <label for="tag2" class="filter-btn">Mysterious</label>
-
-        <input type="checkbox" id="tag3" value="Date Night" style="display:none" onchange="applyFilters()">
-        <label for="tag3" class="filter-btn">Date Night</label>
-
-        <input type="checkbox" id="tag4" value="Happy Hour" style="display:none" onchange="applyFilters()">
-        <label for="tag4" class="filter-btn">Happy Hour</label>
-
-        <input type="checkbox" id="tag5" value="Jazz" style="display:none" onchange="applyFilters()">
-        <label for="tag5" class="filter-btn">Jazz</label>
-        
-        <input type="checkbox" id="tag6" value="$$$" style="display:none" onchange="applyFilters()">
-        <label for="tag6" class="filter-btn">$$$</label>
-
-        <button onclick="clearAll()" style="margin-left: auto; background: #042b04; color: #fff; padding: 10px 20px; border-radius: 8px; border:none; cursor: pointer;">Clear</button>
-      </div>
-      
-      <div class="active-filters-text" id="activeFiltersDisplay"></div>
-    </div>
-
-    <div id="resultsGrid" class="grid"></div>
-  </div>
-
-<script>
-  // --- DATA ---
-  const bars = [
-    { 
-      name: "Tradesman", 
-      score: 1.7, 
-      location: "Williamsburg, Brooklyn", 
-      desc: "Cute bar with a ton of room and outdoor space, not so great martini.", 
-      tags: ["Happy Hour", "Divey", "Good for Groups", "Outside"], 
-      pour: "Dirty", 
-      link: "#" 
-    },
-    { 
-      name: "Have & Meyer", 
-      score: 3.8, 
-      location: "Williamsburg, Brooklyn", 
-      desc: "Ice-cold, extra briny dirty martini—one of the best.", 
-      tags: ["Date Night", "Jazz", "$$$"], 
-      pour: "Dirty", 
-      link: "#" 
-    },
-    { 
-      name: "Bar Bonobo", 
-      score: 3.7, 
-      location: "Chelsea, Manhattan", 
-      desc: "Stunning drinks, energetic ambiance, and welcoming staff.", 
-      tags: ["Date Night", "After Work"], 
-      pour: "Filthy", 
-      link: "#" 
-    },
-    { 
-      name: "Shy Shy", 
-      score: 3.6, 
-      location: "Chelsea, Manhattan", 
-      desc: "A great Martini happy hour, if you can grab a seat, take it.", 
-      tags: ["After Work", "Date Night", "Happy Hour"], 
-      pour: "Filthy", 
-      link: "#" 
-    },
-    // Add more here...
-  ];
-
-  const pourLevels = ["Filthy", "Dirty", "Vermouthy", "Strong"];
-
-  function render(data) {
-    const grid = document.getElementById('resultsGrid');
-    grid.innerHTML = '';
-
-    // Sort by Score High -> Low
-    data.sort((a,b) => b.score - a.score);
-
-    data.forEach(bar => {
-      // Build Pour Bar HTML
-      const pourHtml = pourLevels.map(lvl => {
-        const isActive = lvl === bar.pour ? 'active' : '';
-        return `<div class="pour-segment ${isActive}">${lvl}</div>`;
-      }).join('');
-
-      // Build Tags HTML
-      const tagsHtml = bar.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-header">
-          <h3>${bar.name}</h3>
-          <div class="score-box"><span class="material-icons" style="font-size:16px;">local_bar</span> ${bar.score}</div>
+    <header>
+        <div class="logo-placeholder">
+            Logo Goes Here
         </div>
-        <div class="location-text">${bar.location}</div>
-        <p class="card-desc">${bar.desc}</p>
-        <div class="tags">${tagsHtml}</div>
         
-        <div class="pour-profile">
-          <div class="pour-label">Pour Profile</div>
-          <div class="pour-bar">${pourHtml}</div>
-        </div>
-
-        <a href="${bar.link}" class="btn-main">Take Me There</a>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  function applyFilters() {
-    const loc = document.getElementById('locationSelect').value;
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    const activeTags = Array.from(checkboxes).map(cb => cb.value);
-
-    let filtered = bars;
-
-    // Filter by Location
-    if (loc) {
-      filtered = filtered.filter(b => b.location.includes(loc));
-    }
-
-    // Filter by Tags (must have ALL selected tags)
-    if (activeTags.length > 0) {
-      filtered = filtered.filter(b => activeTags.every(tag => b.tags.includes(tag)));
-    }
-
-    // Update Text
-    const displayText = [];
-    if (loc) displayText.push(loc);
-    if (activeTags.length) displayText.push(...activeTags);
-    
-    document.getElementById('activeFiltersDisplay').textContent = 
-      displayText.length ? "Active Filters: " + displayText.join(" • ") : "";
-
-    render(filtered);
-  }
-
-  function clearAll() {
-    document.getElementById('locationSelect').value = "";
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-    applyFilters();
-  }
-
-  // Init
-  window.onload = () => render(bars);
-</script>
+        </header>
 
 </body>
 </html>
