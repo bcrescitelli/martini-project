@@ -5,83 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Martini Project</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- COLOR PALETTE --- */
+        /* --- CONTEMPORARY ECLECTIC PALETTE & BASE --- */
         :root {
-            --pimento: #ff0b0b;
-            --espresso: #3b1b10;
-            --brine-time: #618f62;
-            --filthy: #032b03;
-            --vermouth: #fffcf1;
+            --bg-color: #F4F2EB;       /* Warm textured cream */
+            --text-color: #111111;     /* Stark black */
+            --accent-color: #E63946;   /* Pimento olive red */
+            --grid-line: rgba(17, 17, 17, 0.1); 
         }
 
-        /* --- BASE STYLES --- */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--vermouth); 
-            /* We will definitely need a bolder font later, but keeping Courier for now */
-            font-family: 'Courier New', Courier, monospace; 
-            color: var(--filthy);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Space Grotesk', sans-serif;
+            
+            /* Geometric grid background */
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
         }
 
-        /* --- BLOCK 1: HEADER (Revised) --- */
+        /* --- BLOCK 1: HEADER --- */
         header {
-            /* Using a gradient instead of solid color for more life */
-            background: linear-gradient(135deg, var(--filthy) 20%, var(--brine-time) 100%);
-            
-            /* A thick, dashed border feels more retro and less "grid-like" */
-            border-bottom: 8px dashed var(--pimento);
-            
-            padding: 2rem 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 2.5rem 2rem;
+            border-bottom: 4px solid var(--text-color);
+            background-color: var(--bg-color); 
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Strong geometric framing lines */
+        header::before, header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--text-color);
+        }
+        header::before { left: 40px; }
+        header::after { right: 40px; }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px; 
+            height: 120px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            border: 3px solid var(--text-color);
+            
+            /* High-contrast, sharp digital drop shadow */
+            box-shadow: 8px 8px 0px var(--accent-color);
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
         }
-
-        /* Placeholder styling - making it funkier */
-        .logo-placeholder {
-            border: 4px solid var(--vermouth);
-            background-color: var(--espresso);
-            color: var(--vermouth);
-            padding: 1rem 3rem;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.2rem;
-            z-index: 1;
-            
-            /* A much harsher, bigger drop shadow for a sticker/ticket effect */
-            box-shadow: 8px 8px 0px var(--pimento); 
-            
-            /* A slight rotation adds dynamic energy (maximalism!) */
-            transform: rotate(-3deg);
+        
+        .logo-container:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px var(--accent-color);
         }
 
-        /* The class we will use once you upload the actual image */
-        .header-logo {
-            max-height: 90px; 
-            width: auto;
-            z-index: 1;
-            /* We might want to rotate the actual logo slightly too when it arrives */
-            /* transform: rotate(-3deg); */ 
+        /* Hide the placeholder text when the image is active */
+        .placeholder-text {
+            font-family: 'Space Grotesk', sans-serif;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .logo-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Change to 'contain' if your logo shouldn't be cropped */
+            display: none; /* Change to 'block' when you add your GitHub image URL */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-placeholder">
-            Logo Goes Here
-        </div>
-        
-        </header>
+        <a href="/" class="logo-container" aria-label="The Martini Project Home">
+            <span class="placeholder-text">Logo<br>Placeholder</span>
+            
+            <img class="logo-img" src="YOUR_GITHUB_RAW_IMAGE_URL" alt="The Martini Project Logo">
+        </a>
+    </header>
 
 </body>
 </html>
