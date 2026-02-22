@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <style>
         /* --- PALETTE & BASE --- */
         :root {
@@ -85,169 +87,230 @@
         }
         .scroll-underline.active::after { width: 100%; }
 
-        /* --- BLOCK 4: DATABASE GRID --- */
-        .database-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 6rem 4rem;
-        }
 
-        .grid-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 3rem;
+        /* --- BLOCK 4: YOUR DATABASE GRID (Styled for Eclectic Theme) --- */
+        .filter-widget {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 4rem;
+            background-color: var(--vermouth);
+        }
+        .filter-widget h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--filthy);
+            text-transform: uppercase;
+            line-height: 1;
             border-bottom: 3px solid var(--filthy);
             padding-bottom: 1rem;
         }
-
-        .grid-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 4rem;
-            text-transform: uppercase;
-            color: var(--filthy);
-            line-height: 1;
+        .filter-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 3px solid var(--filthy);
+            border-radius: 0; /* Removed rounding for brutalist look */
+            padding: 24px;
+            margin-bottom: 30px;
+            background-color: var(--vermouth);
         }
-
-        .grid-filter {
+        .filter-label {
             font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            color: var(--pimento);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+        .location-select {
+            margin: 10px 0;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            padding: 10px 14px;
+            border: 2px solid var(--filthy);
+            background-color: var(--vermouth);
+            color: var(--filthy);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .filters label {
+            background-color: transparent;
+            border: 2px solid var(--filthy);
+            color: var(--filthy);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
-
-        .martini-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 3rem;
+        .filters input[type="checkbox"] {
+            display: none;
         }
-
-        .martini-card {
-            border: 3px solid var(--filthy);
-            background-color: var(--vermouth);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none; /* Make entire card clickable */
-            color: inherit;
-        }
-
-        .martini-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 10px 10px 0px var(--pimento);
-        }
-
-        .card-header {
-            border-bottom: 3px solid var(--filthy);
-            padding: 1rem 1.5rem;
-            background-color: var(--brine-time);
+        .filters input[type="checkbox"]:checked + label {
+            background-color: var(--filthy);
             color: var(--vermouth);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-color: var(--filthy);
         }
-
-        .spirit-tag {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .neighborhood-tag {
+        .clear-button {
+            padding: 8px 16px;
+            background-color: var(--pimento);
+            color: var(--vermouth);
+            border: 2px solid var(--pimento);
+            border-radius: 50px;
+            cursor: pointer;
             font-family: 'Oswald', sans-serif;
             font-size: 1rem;
             text-transform: uppercase;
-            opacity: 0.9;
+            margin-left: auto;
+            transition: all 0.2s ease;
         }
-
-        .card-body {
-            padding: 2rem 1.5rem;
-            flex-grow: 1;
+        .clear-button:hover {
+            background-color: transparent;
+            color: var(--pimento);
+        }
+        .active-filters {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1em;
+            color: var(--pimento);
+        }
+        .bar-results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: flex-start;
+        }
+        .bar-item {
+            width: calc(33.333% - 20px);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            border: 3px solid var(--filthy);
+            border-radius: 0;
+            background-color: var(--vermouth);
+            padding: 24px;
+            color: var(--filthy);
+            min-height: 320px;
+            box-sizing: border-box;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
-        .bar-name {
-            font-size: 2.8rem;
+        .bar-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 10px 10px 0px var(--pimento); /* Eclectic shadow */
+        }
+        .bar-item h3 {
+            font-size: 2.2rem;
             line-height: 1.1;
-            margin-bottom: 1rem;
+            font-weight: normal;
+            color: var(--filthy);
+            border-bottom: 3px solid var(--pimento);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+        .bar-item .score {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--espresso);
+            margin-bottom: 4px;
+        }
+        .material-icons {
+            vertical-align: middle;
+            color: var(--brine-time);
+            font-size: 24px;
+            margin-right: 6px;
+        }
+        .bar-item .bar-location {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            color: var(--espresso);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .bar-item .description {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 0 0 20px;
+            flex-grow: 1;
+            color: var(--espresso);
+        }
+        .bar-item .tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            gap: 8px;
+        }
+        .bar-item .tags span {
+            background-color: var(--brine-time);
+            color: var(--vermouth);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .bar-item .pour-strength-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95em;
+            color: var(--espresso);
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+        .bar-item .pour-strength-bar span {
+            flex: 1;
+            text-align: center;
+            border-bottom: 2px solid var(--espresso);
+            padding-bottom: 4px;
+        }
+        .bar-item .pour-strength-bar .active {
+            color: var(--filthy);
+            font-weight: 700;
+            border-color: var(--filthy);
+            border-bottom-width: 4px;
+            opacity: 1;
+        }
+        .bar-item a {
+            display: inline-block;
+            background-color: var(--filthy);
+            color: var(--vermouth);
+            font-family: 'Oswald', sans-serif;
+            text-decoration: none;
+            padding: 14px 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+            margin-top: auto;
+            font-size: 1.1em;
+            border: 2px solid var(--filthy);
+        }
+        .bar-item a:hover {
+            background-color: var(--vermouth);
             color: var(--filthy);
         }
 
-        .filth-level {
-            margin-bottom: 1.5rem;
-            color: var(--espresso);
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        @media (max-width: 1024px) {
+            .bar-item { width: calc(50% - 15px); }
         }
-
-        /* Custom SVG Olive Icon for Ratings */
-        .olive-icon {
-            width: 18px;
-            height: 18px;
-            fill: var(--brine-time);
-            stroke: var(--filthy);
-            stroke-width: 8;
-        }
-
-        .olive-pimento { fill: var(--pimento); }
-
-        .card-review {
-            font-size: 1.3rem;
-            line-height: 1.5;
-            color: var(--espresso);
-            margin-bottom: 2rem;
-            flex-grow: 1; /* Pushes the "read more" to the bottom */
-        }
-
-        .read-more {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            color: var(--pimento);
-            align-self: flex-start;
-            position: relative;
-        }
-
-        .read-more::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: var(--pimento);
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-
-        .martini-card:hover .read-more::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
         @media (max-width: 768px) {
             header { padding: 1.5rem 1rem; }
             .dossier-wrapper { padding: 3rem 0; }
             .dossier-content { padding: 0 2rem; }
-            .about-title { font-size: 2.8rem; }
-            .about-subtitle { font-size: 1.4rem; margin-bottom: 2rem; }
-            .about-text p { font-size: 1.1rem; }
-            
-            .database-section { padding: 4rem 2rem; }
-            .grid-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .grid-title { font-size: 3rem; }
-            .martini-grid { grid-template-columns: 1fr; }
+            .filter-widget { padding: 0 2rem; margin: 2rem auto; }
+            .filter-widget h2 { font-size: 3rem; }
+            .bar-item { width: 100%; }
         }
     </style>
 </head>
@@ -293,77 +356,37 @@
         </div>
     </section>
 
-    <section class="database-section">
-        
-        <div class="grid-header">
-            <h2 class="grid-title">The Field Notes</h2>
-            <div class="grid-filter">Filter by Neighborhood ↓</div>
+    <div class="filter-widget">
+        <h2>Find Your Perfect Pour</h2>
+        <div class="filter-controls">
+            <div class="filter-label">Filter by Vibe</div>
+            <select id="location" class="location-select" onchange="filterBars()">
+                <option value="">All Locations</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Brooklyn">Brooklyn</option>
+            </select>
+            <div class="filters">
+                <input type="checkbox" id="divey" value="Divey" /><label for="divey">Divey</label>
+                <input type="checkbox" id="mysterious" value="Mysterious" /><label for="mysterious">Mysterious</label>
+                <input type="checkbox" id="datenight" value="Date Night" /><label for="datenight">Date Night</label>
+                <input type="checkbox" id="happyhour" value="Happy Hour" /><label for="happyhour">Happy Hour</label>
+                <input type="checkbox" id="jazz" value="Jazz" /><label for="jazz">Jazz</label>
+                <input type="checkbox" id="outside" value="Outside" /><label for="outside">Outside</label>
+                <input type="checkbox" id="groups" value="Good for Groups" /><label for="groups">Good for Groups</label>
+                <input type="checkbox" id="afterwork" value="After Work" /><label for="afterwork">After Work</label>
+                <input type="checkbox" id="$$$" value="$$$" /><label for="$$$">$$$</label>
+                <input type="checkbox" id="speakeasy" value="Speakeasy" /><label for="speakeasy">Speakeasy</label>
+                <button class="clear-button" onclick="clearFilters()">Clear</button>
+            </div>
+            <div class="active-filters" id="activeFilters"></div>
         </div>
-
-        <div class="martini-grid">
-            
-            <a href="#" class="martini-card">
-                <div class="card-header">
-                    <span class="spirit-tag">Gin</span>
-                    <span class="neighborhood-tag">West Village</span>
-                </div>
-                <div class="card-body">
-                    <h3 class="bar-name">Minetta Tavern</h3>
-                    <div class="filth-level">
-                        Filth: 
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                    </div>
-                    <p class="card-review">An absolute classic. The brine is balanced, the glass is dangerously cold, and the atmosphere forces you to order a second round.</p>
-                    <span class="read-more">Read Review</span>
-                </div>
-            </a>
-
-            <a href="#" class="martini-card">
-                <div class="card-header">
-                    <span class="spirit-tag">Vodka</span>
-                    <span class="neighborhood-tag">Williamsburg</span>
-                </div>
-                <div class="card-body">
-                    <h3 class="bar-name">Maison Premiere</h3>
-                    <div class="filth-level">
-                        Filth: 
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                    </div>
-                    <p class="card-review">They know oysters, and they know the exact level of salinity needed to cut through a heavy dinner. Beautifully filthy.</p>
-                    <span class="read-more">Read Review</span>
-                </div>
-            </a>
-
-            <a href="#" class="martini-card">
-                <div class="card-header">
-                    <span class="spirit-tag">Gin / Vodka</span>
-                    <span class="neighborhood-tag">Upper East Side</span>
-                </div>
-                <div class="card-body">
-                    <h3 class="bar-name">Bemelmans Bar</h3>
-                    <div class="filth-level">
-                        Filth: 
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                        <svg class="olive-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle class="olive-pimento" cx="65" cy="35" r="15" stroke="none"/></svg>
-                    </div>
-                    <p class="card-review">You aren't just paying for the drink, you're paying for the piano and the murals. The sidecar carafe is a godsend.</p>
-                    <span class="read-more">Read Review</span>
-                </div>
-            </a>
-
-        </div>
-    </section>
+        <div class="bar-results" id="barResults"></div>
+    </div>
 
     <script>
-        // Scroll Highlights Script (from Block 3)
+        // --- BLOCK 3: SCROLL ANIMATION ---
         document.addEventListener("DOMContentLoaded", () => {
             const animatedElements = document.querySelectorAll('.scroll-highlight, .scroll-underline');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -374,9 +397,120 @@
                 threshold: 0.1, 
                 rootMargin: "0px 0px -50px 0px" 
             });
-
             animatedElements.forEach(el => observer.observe(el));
         });
+
+        // --- BLOCK 4: YOUR FILTER & RENDER LOGIC ---
+        const pourLevels = ['Filthy', 'Dirty', 'Vermouthy', 'Strong'];
+
+        const bars = [
+            { name: "Have & Meyer", score: 3.8, description: "Ice-cold, extra briny dirty martini—one of the best.", tags: ["Date Night", "Jazz", "$$$"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Have+%26+Meyer+Brooklyn" },
+            { name: "Sid Gold’s Request Room", score: 2.6, description: "Dirty martini and the best excuse to end your night singing.", tags: ["Date Night", "Good for Groups", "Jazz"], location: "Manhattan", neighborhood: "NoMad", pour: "Vermouthy", maps_link: "https://www.google.com/maps/search/?api=1&query=Sid+Gold%E2%80%99s+Request+Room+New+York" },
+            { name: "Obvio", score: 2.8, description: "Obvio nails the dirty martini balance. Pricey but perfect for a night out.", tags: ["$$$", "Date Night"], location: "Manhattan", neighborhood: "Flatiron", pour: "Dirty", maps_link: "https://maps.app.goo.gl/T7NagYCTUqs5FzS9A" },
+            { name: "Night of Joy", score: 2.6, description: "On a nice day there is a really cute outdoor area big for a group hang.", tags: ["Outside", "Good for Groups"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://maps.app.goo.gl/s3H9vZEJx8wgqpmT8" },
+            { name: "Lele's Roman", score: 2.4, description: "Really cute hotel bar with a good martini, however service was lacking.", tags: ["Happy Hour", "Good for Groups"], location: "Brooklyn", neighborhood: "Boerum Hill", pour: "Dirty", maps_link: "https://maps.app.goo.gl/VRDkVPue2cUpSN4f6" },
+            { name: "Little Maven", score: 2.9, description: "Great martini, the HH is only at the bar which fills up quickly, but cute afterwork spot.", tags: ["After Work", "Happy Hour"], location: "Manhattan", neighborhood: "Chelsea", pour: "Dirty", maps_link: "https://maps.app.goo.gl/AS8H96obSHGdKT2b8" },
+            { name: "Basement", score: 2.6, description: "Fun speakeasy with plenty of room for friends and games to play throughout.", tags: ["After Work", "Speakeasy", "Good for Groups"], location: "Manhattan", neighborhood: "Chinatown", pour: "Dirty", maps_link: "https://maps.app.goo.gl/QFq2wqwZUtpzzziZ9" },
+            { name: "Casa Thirteen", score: 2.9, description: "Up-scaled place where you can order the best smashburger next door, great martini, perfect for winding down.", tags: ["Date Night", "Mysterious"], location: "Manhattan", neighborhood: "Lower East Side", pour: "Dirty", maps_link: "https://maps.app.goo.gl/ZWcCqNbtng7eieYWA" },
+            { name: "San Sabino", score: 3.4, description: "Had the garlic bread martini, which was almost like a spicy dirty martini, would def go back.", tags: ["After Work", "Date Night"], location: "Manhattan", neighborhood: "West Village", pour: "Dirty", maps_link: "https://maps.app.goo.gl/jCZSP3yXskJA44nB7" },
+            { name: "The Ripple Room", score: 2.8, description: "So much space and a great martini happy hour to catch up with a group of friends.", tags: ["After Work", "Good for Groups"], location: "Manhattan", neighborhood: "Lower East Side", pour: "Dirty", maps_link: "https://maps.app.goo.gl/CFzsau2Hu9Jm7EHS8" },
+            { name: "Bar Bonobo", score: 3.7, description: "Stunning drinks, energetic ambiance, and welcoming staff.", tags: ["Date Night", "After Work"], location: "Manhattan", neighborhood: "Chelsea", pour: "Filthy", maps_link: "https://www.google.com/maps/search/?api=1&query=Bar+Bonobo+New+York" },
+            { name: "Bandits", score: 3.4, description: "$10 Martini Mondays and a top-notch filthy martini.", tags: ["Happy Hour", "Divey"], location: "Manhattan", neighborhood: "West Village", pour: "Filthy", maps_link: "https://www.google.com/maps/search/?api=1&query=Bandits+New+York" },
+            { name: "The Wooly", score: 2.5, description: "A slightly above average dirty martini, I'd go back but not out of my way.", tags: ["Happy Hour", "Good for Groups"], location: "Manhattan", neighborhood: "NoLita", pour: "Dirty", maps_link: "https://maps.app.goo.gl/WTvZmzZ35SgjqMzB8" },
+            { name: "Bar Belly", score: 2.7, description: "$1 Oysters HH and a nice dirty martini.", tags: ["Happy Hour", "Date Night"], location: "Manhattan", neighborhood: "Lower East Side", pour: "Dirty", maps_link: "https://maps.app.goo.gl/7zNzRHYpnVXBma9R7" },
+            { name: "The Rockwell Place", score: 1.4, description: "The blue cheese olive martini was poured out of a thermos, but the ambiance was nice.", tags: ["Good for Groups", "Happy Hour"], location: "Brooklyn", neighborhood: "Fort Greene", pour: "Filthy", maps_link: "https://maps.app.goo.gl/695DN6ADJfAJHvyd6" },
+            { name: "Boqueria", score: 2.3, description: "A fun chain of locations and a spicy dirty martini that is on theme.", tags: ["Good for Groups"], location: "Manhattan", neighborhood: "Midtown", pour: "Dirty", maps_link: "https://maps.app.goo.gl/pb5Eqr1391ebBKgg6" },
+            { name: "Au Cheval", score: 3, description: "The best burger I've had, but served with a dirty that has blue cheese stuffed olives.", tags: ["Good for Groups"], location: "Manhattan", neighborhood: "Tribecca", pour: "Dirty", maps_link: "https://maps.app.goo.gl/ZEcpdrPzAS6bzf1n76" },
+            { name: "JR & Son", score: 3.3, description: "Rustic italian charm meets a delicious dirty martini", tags: ["Date Night", "Mysterious"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://maps.app.goo.gl/C8Xosb62CYUq8e9y6" },
+            { name: "Super Burrito", score: 2.3, description: "Divey spot with a great burrito and a cheap dirty martini that gets the job done", tags: ["Divey", "Happy Hour", "Good for Groups"], location: "Manhattan", neighborhood: "West Village", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/KVVfW2amarZ1ozv87" },
+            { name: "Tradesman", score: 1.7, description: "Cute bar with a ton of room and outdoor space, not so great martini.", tags: ["Happy Hour", "Divey", "Good for Groups", "Outside"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://maps.app.goo.gl/sAfKR3DQRN5RPm7N9" },
+            { name: "The Tusk Bar", score: 3, description: "Felt very exclusive with pushy bartenders, who can make a nice martini.", tags: ["$$$", "Date Night"], location: "Manhattan", neighborhood: "NoMad", pour: "Strong", maps_link: "https://maps.app.goo.gl/TFfyuKEWhryZQFQs6" },
+            { name: "Hello Hello", score: 3, description: "A lived in bar that is mid century modern meets a solid vermouth-forward martini.", tags: ["Good for Groups", "After Work"], location: "Manhattan", neighborhood: "Chelsea", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/t1ZFHkAhJqeN42qL6" },
+            { name: "The Otheroom", score: 2.5, description: "Cute bar with underground vibes, and a solid, vermouth-forward 'tini.", tags: ["Date Night", "Mysterious"], location: "Manhattan", neighborhood: "West Village", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/ePSLAeJwMVJQvgWAA" },
+            { name: "Dick & Janes", score: 2.3, description: "Divey after dark; martini olives sat out a bit too long.", tags: ["Divey"], location: "Brooklyn", neighborhood: "Fort Greene", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Dick+%26+Janes+Brooklyn" },
+            { name: "Grey Lady", score: 2.7, description: "Upgraded dive with a solid martini happy hour and outdoor seating.", tags: ["Divey", "Happy Hour", "Outside"], location: "Manhattan", neighborhood: "Lower East Side", pour: "Dirty", maps_link: "https://maps.app.goo.gl/iJy1jyj38JUwgMsX6" },
+            { name: "Portrait Bar", score: 3.1, description: "Beautiful decor and a side of fixins for your martini.", tags: ["Date Night", "$$$"], location: "Manhattan", neighborhood: "NoMad", pour: "Strong", maps_link: "https://maps.app.goo.gl/MPDmaA1yNNfJiXfs8" },
+            { name: "Pearl Box", score: 3.1, description: "Great happy hour with limited seats, but stunning vibe for sipping martinis.", tags: ["Date Night", "Happy Hour"], location: "Manhattan", neighborhood: "SoHo", pour: "Dirty", maps_link: "https://maps.app.goo.gl/JtCUSKdkVavoke6C8" },
+            { name: "Beyond the Pale", score: 2.7, description: "Lower key vibe great for groups and a solid martini.", tags: ["Good for Groups", "Happy Hour"], location: "Manhattan", neighborhood: "NoLita", pour: "Dirty", maps_link: "https://maps.app.goo.gl/oHyFirr2n3iQ5CXa9" },
+            { name: "Lullaby", score: 3.1, description: "Cute cocktail bar, tucked away, serving up a good martini, perfect for date night.", tags: ["Date Night", "$$$", "Mysterious"], location: "Manhattan", neighborhood: "Lower East Side", pour: "Dirty", maps_link: "https://maps.app.goo.gl/uQYTCK7ufkuuQAVQ6" },
+            { name: "Colonia Verde", score: 2.7, description: "Smooth pour, but the olive needed love.", tags: ["Date Night", "Outside"], location: "Brooklyn", neighborhood: "Fort Greene", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Colonia+Verde+Brooklyn" },
+            { name: "Bar Americano", score: 2.9, description: "A bit heavier on the vermouth side, but it is a vermouth bar afterall, I enjoyed it.", tags: ["Date Night"], location: "Brooklyn", neighborhood: "Greenpoint", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/eHpRs1cvXrZBSyzo9" },
+            { name: "Eavesdrop", score: 2.9, description: "Vibes inside at the bar were great, but you definitely need a reservation, stronger pour.", tags: ["Date Night"], location: "Brooklyn", neighborhood: "Greenpoint", pour: "Strong", maps_link: "https://maps.app.goo.gl/38PGjnizw9CZsmDq9" },
+            { name: "The Garret", score: 2.8, description: "Smooth, salty, and secretive—like a martini should be.", tags: ["Date Night", "Speakeasy"], location: "Manhattan", neighborhood: "West Village", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=The+Garret+New+York" },
+            { name: "St. Mazie", score: 3.1, description: "Music swings, martinis sing—briny and balanced.", tags: ["Date Night", "Jazz", "Outside"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=St.+Mazie+Brooklyn" },
+            { name: "Barb’s", score: 2.6, description: "A fun bar with a solid martini—perfect post-dinner stop.", tags: ["Divey", "Happy Hour"], location: "Brooklyn", neighborhood: "BedStuy", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Barb%E2%80%99s+Brooklyn" },
+            { name: "Dear Strangers", score: 2.4, description: "Come for the vibes, not the martini.", tags: ["Date Night"], location: "Manhattan", neighborhood: "West Village", pour: "Strong", maps_link: "https://www.google.com/maps/search/?api=1&query=Dear+Strangers+New+York" },
+            { name: "Livingston Manor", score: 2.6, description: "Spacious and relaxed with a solid martini. Great spot for a group or catch up.", tags: ["Good for Groups", "Happy Hour"], location: "Brooklyn", neighborhood: "Downtown Brooklyn", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Livingston+Manor+Brooklyn" },
+            { name: "The West", score: 2.5, description: "Great espresso tini, but dirty one lacks flair.", tags: ["Divey", "Outside"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Strong", maps_link: "https://www.google.com/maps/search/?api=1&query=The+West+Brooklyn" },
+            { name: "Kellogg’s Diner", score: 1.6, description: "It’s a diner martini—what did you expect?", tags: ["Good for Groups"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Strong", maps_link: "https://www.google.com/maps/search/?api=1&query=Kellogg%27s+Diner+Brooklyn" },
+            { name: "Gage & Tollner", score: 2.6, description: "Elegant setting, perfect pour, top-tier people watching.", tags: ["Date Night"], location: "Brooklyn", neighborhood: "Downtown Brooklyn", pour: "Dirty", maps_link: "https://www.google.com/maps/search/?api=1&query=Gage+%26+Tollner+Brooklyn" },
+            { name: "Sunken Harbor Club", score: 2.4, description: "Nautical vibes, dry martini—bring your own brine.", tags: ["Date Night"], location: "Brooklyn", neighborhood: "Downtown Brooklyn", pour: "Strong", maps_link: "https://www.google.com/maps/search/?api=1&query=Sunken+Harbor+Club+Brooklyn" },
+            { name: "Le Dive", score: 2.7, description: "People watching paradise, strong martini.", tags: ["Date Night", "After Work"], location: "Manhattan", neighborhood: "Chinatown", pour: "Strong", maps_link: "https://maps.app.goo.gl/8s6FQMPeMTNd6Kjr8" },
+            { name: "KID", score: 2.7, description: "The East River martini is where it’s at, don’t get the regular dirty.", tags: ["Good for Groups", "After Work"], location: "Manhattan", neighborhood: "Chelsea", pour: "Filthy", maps_link: "https://maps.app.goo.gl/HMbA2L1hCjCKNfoo7" },
+            { name: "Refinery Rooftop", score: 2.5, description: "The views are the best part, a nice martini though.", tags: ["Outside", "After Work"], location: "Manhattan", neighborhood: "NoMad", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/w6bcr2qZVf5TuJ8fA" },
+            { name: "Experimental Cocktail Club", score: 3.0, description: "Stunning vibes and bartenders to make you feel classy.", tags: ["Speakeasy", "Date Night"], location: "Manhattan", neighborhood: "Flatiron", pour: "Strong", maps_link: "https://maps.app.goo.gl/iNbQLGpu9jBFPVgH7" },
+            { name: "Horses and Divorces", score: 2.5, description: "A dive bar with cute theming and a martini on the menu.", tags: ["Divey", "Happy Hour"], location: "Brooklyn", neighborhood: "Williamsburg", pour: "Vermouthy", maps_link: "https://maps.app.goo.gl/NxBs5PdjUcdCmSuT9" },
+            { name: "Parlour Room", score: 2.9, description: "A strong martini that is cut with the best blue cheese olives.", tags: ["After Work", "Date Night"], location: "Manhattan", neighborhood: "Midtown South", pour: "Strong", maps_link: "https://maps.app.goo.gl/qw3HEd32mYuAMjSU8" },
+            { name: "Old Mates", score: 2.7, description: "Never seen so many people get a dirty martini at a dive, overall solid.", tags: ["After Work", "Divey", "Good for Groups"], location: "Manhattan", neighborhood: "FiDi", pour: "Filthy", maps_link: "https://maps.app.goo.gl/dhqZ1iN7wY4SwBYz9" },
+            { name: "Oscar Wilde", score: 3.1, description: "Amazing decor which elevates the already pretty good dirty martini.", tags: ["Date Night"], location: "Manhattan", neighborhood: "NoMad", pour: "Dirty", maps_link: "https://maps.app.goo.gl/n4KusVKJgrQP9AgJA" },
+            { name: "Shy Shy", score: 3.6, description: "A great Martini happy hour, if you can grab a seat, take it.", tags: ["After Work", "Date Night", "Happy Hour"], location: "Manhattan", neighborhood: "Chelsea", pour: "Filthy", maps_link: "https://maps.app.goo.gl/jG7sNFQd83a3QAX19" },
+            { name: "Jungle Bird", score: 2.9, description: "Solid martini, with plenty of standing space and cute vibe.", tags: ["Good for Groups", "After Work"], location: "Manhattan", neighborhood: "Chelsea", pour: "Dirty", maps_link: "https://maps.app.goo.gl/QPL7kqgNYy7UveaP9" },
+            { name: "Ruby’s Cafe", score: 2.0, description: "Cute spot, but the martini’s more ‘meh’ than magic.", tags: ["Date Night"], location: "Manhattan", neighborhood: "West Village", pour: "Strong", maps_link: "https://www.google.com/maps/search/?api=1&query=Ruby%27s+Cafe+New+York" }
+        ];
+
+        function renderBars(data) {
+            const container = document.getElementById('barResults');
+            container.innerHTML = '';
+            data.sort((a, b) => b.score - a.score);
+            data.forEach(bar => {
+                const strengthScale = pourLevels.map(level => {
+                    const activeClass = level === bar.pour ? 'active' : '';
+                    return `<span class="${activeClass}">${level}</span>`;
+                }).join('');
+                const el = document.createElement('div');
+                el.className = 'bar-item';
+                el.innerHTML = `
+                    <h3>${bar.name}</h3>
+                    <div class="score"><span class="material-icons">local_bar</span>${bar.score} / 4</div>
+                    <div class="bar-location">${bar.neighborhood}</div>
+                    <div class="description">${bar.description}</div>
+                    <div class="tags">${bar.tags.map(t => `<span>${t}</span>`).join('')}</div>
+                    <div class="pour-strength-bar">${strengthScale}</div>
+                    <a href="${bar.maps_link}" target="_blank">Take Me There</a>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function clearFilters() {
+            document.querySelectorAll('.filters input').forEach(i => i.checked = false);
+            document.getElementById('location').value = '';
+            document.getElementById('activeFilters').textContent = '';
+            renderBars(bars);
+        }
+
+        function filterBars() {
+            const selectedTags = Array.from(document.querySelectorAll('.filters input:checked')).map(i => i.value);
+            const selectedLocation = document.getElementById('location').value;
+            const active = [];
+            let filtered = bars;
+            if (selectedLocation) {
+                filtered = filtered.filter(b => b.location === selectedLocation);
+                active.push(selectedLocation);
+            }
+            if (selectedTags.length) {
+                filtered = filtered.filter(b => selectedTags.every(tag => b.tags.includes(tag)));
+                active.push(...selectedTags);
+            }
+            document.getElementById('activeFilters').textContent = active.length ? `Active Filters: ${active.join(', ')}` : '';
+            renderBars(filtered);
+        }
+
+        window.onload = () => {
+            renderBars(bars);
+            document.querySelectorAll('.filters input').forEach(i => i.addEventListener('change', filterBars));
+            document.getElementById('location').addEventListener('change', filterBars);
+        };
     </script>
 </body>
 </html>
