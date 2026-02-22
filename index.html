@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PALETTE & BASE --- */
         :root {
             --pimento: #ff0b0b;
             --espresso: #3b1b10;
@@ -46,69 +45,60 @@
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-        /* --- BLOCK 3: COMPACT INTERACTIVE ABOUT --- */
-        .interactive-about {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            /* Extra height so there's enough room to scroll and trigger the animation */
-            min-height: 70vh; 
+        /* --- BLOCK 3: DOSSIER SCROLL HIGHLIGHTS --- */
+        .dossier-section {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            text-align: center;
+            /* Extra bottom margin so you can scroll past it to see the trigger */
+            margin-bottom: 20vh; 
         }
 
-        /* Left Side: Compact Text */
-        .about-text-container {
-            max-width: 550px;
-        }
-        
         .about-title { font-size: 3.5rem; margin-bottom: 0.5rem; line-height: 1.1; }
         .about-subtitle { font-size: 1.5rem; font-style: italic; color: var(--espresso); margin-bottom: 2rem; }
+        .about-text p { font-size: 1.3rem; line-height: 1.6; margin-bottom: 1.5rem; color: var(--espresso); }
         
-        .accent-underline {
-            text-decoration: underline; text-decoration-color: var(--pimento);
-            text-decoration-thickness: 3px; text-underline-offset: 4px;
+        /* Interactive Highlight CSS */
+        .scroll-highlight {
+            background-image: linear-gradient(var(--pimento), var(--pimento));
+            background-size: 0% 100%;
+            background-repeat: no-repeat;
+            background-position: left center;
+            transition: background-size 0.6s cubic-bezier(0.65, 0, 0.35, 1), color 0.4s ease;
+            padding: 0 0.3rem;
+            font-style: italic;
         }
 
-        .about-text-container p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem; color: var(--espresso); }
-        .about-text-container p:last-child { margin-bottom: 0; }
-
-        .text-highlight {
-            background-color: var(--pimento); color: var(--vermouth);
-            padding: 0 0.3rem; font-style: italic;
+        .scroll-highlight.active {
+            background-size: 100% 100%;
+            color: var(--vermouth);
         }
 
-        /* Right Side: Interactive SVG Canvas */
-        .interactive-canvas {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
+        /* Interactive Underline CSS */
+        .scroll-underline {
+            position: relative;
+            display: inline-block;
         }
 
-        .martini-svg {
+        .scroll-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: var(--pimento);
+            transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .scroll-underline.active::after {
             width: 100%;
-            max-width: 300px;
-            overflow: visible;
-        }
-
-        /* Olive Animation Classes (triggered by JS) */
-        .olive-group {
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .olive-group.dropped {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
-            .interactive-about { grid-template-columns: 1fr; padding: 3rem 2rem; text-align: center; }
-            .about-text-container { margin: 0 auto; }
-            .martini-svg { max-width: 200px; margin-top: 2rem; }
+            .about-title { font-size: 2.8rem; }
+            .about-text p { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -119,84 +109,41 @@
             <a href="/" class="logo-wrapper"><img class="logo-img" src="logo-horizontal.png" alt="Logo"></a>
         </div>
     </header>
+    
     <section class="clash-marquee-container">
-        <div class="marquee-row row-back">
-            <div class="track"><span>THE MARTINI PROJECT</span><span>THE MARTINI PROJECT</span></div>
-            <div class="track"><span>THE MARTINI PROJECT</span><span>THE MARTINI PROJECT</span></div>
-        </div>
-        <div class="marquee-row row-front">
-            <div class="track"><span>The Martini Project</span><span>The Martini Project</span></div>
-            <div class="track"><span>The Martini Project</span><span>The Martini Project</span></div>
-        </div>
+        <div class="marquee-row row-back"><div class="track"><span>THE MARTINI PROJECT</span><span>THE MARTINI PROJECT</span></div><div class="track"><span>THE MARTINI PROJECT</span><span>THE MARTINI PROJECT</span></div></div>
+        <div class="marquee-row row-front"><div class="track"><span>The Martini Project</span><span>The Martini Project</span></div><div class="track"><span>The Martini Project</span><span>The Martini Project</span></div></div>
     </section>
 
-    <section class="interactive-about" id="about-section">
-        
-        <div class="about-text-container">
-            <h2 class="about-title">About the Project</h2>
-            <h3 class="about-subtitle">A totally necessary martini database, <span class="accent-underline">with a twist</span></h3>
-            <p>Listen, we are living in a golden age of martinis. Espresso martinis are fueling the masses, the East River water is making dirty martinis dirtier than ever, and some bartenders are doing things with gin that should probably require a permit. It is a beautiful and chaotic time.</p>
-            <p>Enter <span class="text-highlight">The Martini Project</span> your spirited guide to NYC’s best dirty martinis. There’s no crying over spilt milk, but we allow for the occasional tear over a tasteless martini. We are here to separate the crisp from the cringe and the briny from the bland.</p>
-            <p>This is not just a list. This is a mission. <span class="accent-underline">And it comes with blue cheese stuffed olives.</span></p>
-        </div>
-
-        <div class="interactive-canvas">
-            <svg class="martini-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <clipPath id="bowlMask">
-                        <polygon points="10,10 90,10 50,55" />
-                    </clipPath>
-                </defs>
-                
-                <g clip-path="url(#bowlMask)">
-                    <rect id="liquid-fill" x="0" y="55" width="100" height="50" fill="var(--brine-time)" />
-                </g>
-
-                <g id="olive-garnish" class="olive-group">
-                    <circle cx="50" cy="35" r="8" fill="var(--brine-time)" stroke="var(--filthy)" stroke-width="1.5"/>
-                    <circle cx="53" cy="33" r="3" fill="var(--pimento)"/>
-                </g>
-
-                <polyline points="5,5 95,5 50,55 50,95 35,95 65,95" fill="none" stroke="var(--filthy)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+    <section class="dossier-section">
+        <h2 class="about-title">About the Project</h2>
+        <h3 class="about-subtitle">A totally necessary martini database, <span class="scroll-underline">with a twist</span></h3>
+        <div class="about-text">
+            <p>Listen, we are living in a golden age of martinis. Espresso martinis are fueling the masses, the East River water is making dirty martinis dirtier than ever, and some bartenders are doing things with gin that should probably require a permit.</p>
+            <p>Enter <span class="scroll-highlight">The Martini Project</span> your spirited guide to NYC’s best dirty martinis. There’s no crying over spilt milk, but we allow for the occasional tear over a tasteless martini.</p>
+            <p>This is not just a list. This is a mission. <span class="scroll-underline">And it comes with blue cheese stuffed olives.</span></p>
         </div>
     </section>
 
     <script>
+        // Use Intersection Observer to trigger animations when scrolled into view
         document.addEventListener("DOMContentLoaded", () => {
-            const section = document.getElementById('about-section');
-            const liquid = document.getElementById('liquid-fill');
-            const olive = document.getElementById('olive-garnish');
-            
-            // The bounds for the liquid's Y position inside the SVG
-            // 55 is the bottom tip of the glass (empty), 15 is near the top (full)
-            const emptyY = 55;
-            const fullY = 15;
+            const animatedElements = document.querySelectorAll('.scroll-highlight, .scroll-underline');
 
-            window.addEventListener('scroll', () => {
-                const rect = section.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                
-                // Calculate how far the user has scrolled through the section
-                // Starts at 0 when the top of the section enters the screen
-                let progress = (windowHeight - rect.top) / (windowHeight + rect.height * 0.5);
-                
-                // Clamp progress between 0 and 1
-                progress = Math.max(0, Math.min(1, progress));
-                
-                // Calculate current liquid height
-                const currentY = emptyY - (progress * (emptyY - fullY));
-                liquid.setAttribute('y', currentY);
-
-                // Drop the olive in when the glass is 80% full
-                if (progress > 0.8) {
-                    olive.classList.add('dropped');
-                } else {
-                    olive.classList.remove('dropped');
-                }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // When the element is 20% visible in the viewport
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.2, // Trigger when 20% visible
+                rootMargin: "0px 0px -100px 0px" // Triggers slightly before the very bottom of the screen
             });
+
+            animatedElements.forEach(el => observer.observe(el));
         });
     </script>
-
 </body>
 </html>
